@@ -1,21 +1,31 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.7;
 
-contract ContractA {
-    string internal tokenName = "FunToken";
+contract Person {
+    string public name;
 
-    function initialize() external {
-        address contractBAddress = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
-        (bool success, bytes memory returndata) = contractBAddress.delegatecall(
-            abi.encodeWithSelector(
-                ContractB.setTokenName.selector,
-                "BoringToken"
-            )
-        );
+    constructor(string memory _name) {
+        name = _name;
+    }
+}
 
-        // if the function call reverted
+contract Alice is Person {
+    constructor() Person("Alice") {}
+
+    function setName(string calldata _name) public {
+        name = _name;
+    }
+}
+
+contract Bob is Person {
+    constructor() Person("Bob") {}
+
+    function delegateNameChange(string calldata _name, address _delegateTo)
+        external
+    {
+        (bool success, bytes memory returndata) = address(_delegateTo)
+            .delegatecall(abi.encodeWithSignature("setName(string)", _name));
         if (success == false) {
-            // if there is a return reason string
             if (returndata.length > 0) {
                 // bubble up any reason for revert
                 assembly {
@@ -26,13 +36,5 @@ contract ContractA {
                 revert("Function call reverted");
             }
         }
-    }
-}
-
-contract ContractB {
-    string internal tokenName = "BoringToken";
-
-    function setTokenName(string calldata _newName) external {
-        tokenName = _newName;
     }
 }
