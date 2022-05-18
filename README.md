@@ -3,7 +3,7 @@
 ## Lesson - Intro to Blockchain
 
 - What is a transaction? Any change to the ledger can be described as a transaction. Transactions must adhere to strict rules checked by the nodes.
-- What is the approximate time of every Ethereum transaction? It depends on the offered gas fees. The nodes first include transactions with higher gas fees when mining blocks. In theory, Ethereum network can process around 15 transactions per second. Depending on volume, any transaction gets verified in between 15 seconds and 5 minutes.
+- What is the approximate time of every Ethereum transaction? It depends on the offered gas fees. The nodes first include transactions with higher gas fees when mining blocks. In theory, Ethereum network can process around 30 transactions per second. Depending on volume, usually any transaction gets verified in between 15 seconds and 5 minutes.
 - What is a node? Computer running a specific software which synchronizes its version of the ledger with all other nodes.
 
 ## Lesson - Learning Solidity
