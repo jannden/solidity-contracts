@@ -40,7 +40,7 @@ contract Election is Ownable {
         );
         require(
             !resultsSubmitted[result.name],
-            "This state result was already submitted!"
+            "This state already submitted!"
         );
 
         uint8 winner;
@@ -64,6 +64,10 @@ contract Election is Ownable {
             return CANDIDATE_B;
         }
         return 0;
+    }
+
+    function currentSeats() public view returns (uint8, uint8) {
+        return (seats[CANDIDATE_A], seats[CANDIDATE_B]);
     }
 
     function endElection() public onlyActiveElection onlyOwner {
